@@ -1,88 +1,11 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Location Check</title>
-    <style>
-        /* --- START OF NEW MOBILE-FOCUSED CSS --- */
-
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-            text-align: center;
-            /* New animated gradient background */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        /* Animation for the background gradient */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container { 
-            background: white;
-            padding: 30px;
-            border-radius: 16px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Softer shadow */
-            width: 100%;
-            max-width: 450px; /* Optimal width for a card */
-            box-sizing: border-box;
-        }
-
-        h1 { 
-            color: #333; /* Dark text for readability */
-            font-size: 2.2em;
-            font-weight: 600;
-            margin-top: 0;
-        }
-
-        p { 
-            color: #555; /* Slightly lighter grey for paragraph */
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        /* Spinner updated for the new color scheme */
-        .spinner { 
-            border: 5px solid #f3f3f3; /* Light grey track */
-            border-top: 5px solid #23a6d5; /* Blue to match gradient */
-            border-radius: 50%; 
-            width: 50px; 
-            height: 50px; 
-            animation: spin 1.2s linear infinite; 
-            margin: 30px auto 10px auto;
-        }
-
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
-
-        /* Minor adjustments for smaller screens */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            p {
-                font-size: 1em;
-            }
-            .container {
-                padding: 25px;
-            }
-        }
-    </style>
+    <!-- Link to the new front CSS -->
+    <link rel="stylesheet" href="front.css">
 </head>
 <body>
     <div class="container" id="status-container">
@@ -119,6 +42,7 @@
 
         function showError(message) {
             const container = document.getElementById('status-container');
+            // Keep the structure generic so CSS applies correctly
             container.innerHTML = `<h1>Access Denied</h1><p>${message}</p>`;
         }
 
@@ -138,163 +62,18 @@
                         showError('You are not within the required location for attendance. Please move closer and try again.');
                     }
                 },
-                () => {
-                    showError('Unable to retrieve your location. Please ensure you have enabled location services for your browser.');
+                (error) => {
+                    // console.error(error); // Optional debugging
+                    let msg = 'Unable to retrieve your location.';
+                    if (error.code === 1) msg = 'Location permission denied. Please enable location services.';
+                    else if (error.code === 2) msg = 'Location unavailable.';
+                    else if (error.code === 3) msg = 'Location request timed out.';
+                    showError(msg);
                 },
-                { enableHighAccuracy: true }
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         }
         window.onload = checkLocation;
     </script>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Location Check</title>
-    <style>
-        /* --- START OF NEW MOBILE-FOCUSED CSS --- */
-
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-            text-align: center;
-            /* New animated gradient background */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        /* Animation for the background gradient */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container { 
-            background: white;
-            padding: 30px;
-            border-radius: 16px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Softer shadow */
-            width: 100%;
-            max-width: 450px; /* Optimal width for a card */
-            box-sizing: border-box;
-        }
-
-        h1 { 
-            color: #333; /* Dark text for readability */
-            font-size: 2.2em;
-            font-weight: 600;
-            margin-top: 0;
-        }
-
-        p { 
-            color: #555; /* Slightly lighter grey for paragraph */
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        /* Spinner updated for the new color scheme */
-        .spinner { 
-            border: 5px solid #f3f3f3; /* Light grey track */
-            border-top: 5px solid #23a6d5; /* Blue to match gradient */
-            border-radius: 50%; 
-            width: 50px; 
-            height: 50px; 
-            animation: spin 1.2s linear infinite; 
-            margin: 30px auto 10px auto;
-        }
-
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
-
-        /* Minor adjustments for smaller screens */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            p {
-                font-size: 1em;
-            }
-            .container {
-                padding: 25px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container" id="status-container">
-        <h1>Checking Location</h1>
-        <p>Please grant location permissions to continue.</p>
-        <div class="spinner"></div>
-    </div>
-
-    <script>
-        // --- YOUR DETAILS --- 
-
-        // 1. Your classroom's coordinates (from Google Maps)
-        const targetLatitude = 21.396219;
-        const targetLongitude = 81.892669;
-
-        // 2. Your NEW Microsoft Forms URL
-        const formUrl = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=dqBGjZPQbUGle4aSzeE7-P_Mrou4ewVKqgz44EPIev9UN0VXREhFUTAzRlpEWkdYV0VGQTY1T0tUNy4u';
-
-        // 3. The allowed radius in meters
-        const allowedRadiusInMeters = 28;
-
-        // --- END OF SECTION TO EDIT ---
-
-        function getDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371e3;
-            const phi1 = lat1 * Math.PI / 180;
-            const phi2 = lat2 * Math.PI / 180;
-            const deltaPhi = (lat2 - lat1) * Math.PI / 180;
-            const deltaLambda = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c;
-        }
-
-        function showError(message) {
-            const container = document.getElementById('status-container');
-            container.innerHTML = `<h1>Access Denied</h1><p>${message}</p>`;
-        }
-
-        function checkLocation() {
-            if (!navigator.geolocation) {
-                showError('Geolocation is not supported by your browser.');
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const userLat = position.coords.latitude;
-                    const userLon = position.coords.longitude;
-                    const distance = getDistance(targetLatitude, targetLongitude, userLat, userLon);
-                    if (distance <= allowedRadiusInMeters) {
-                        window.location.href = formUrl;
-                    } else {
-                        showError('You are not within the required location for attendance. Please move closer and try again.');
-                    }
-                },
-                () => {
-                    showError('Unable to retrieve your location. Please ensure you have enabled location services for your browser.');
-                },
-                { enableHighAccuracy: true }
-            );
-        }
-        window.onload = checkLocation;
-    </script>
-</body>
->>>>>>> 1569c7c752f2f0086c1a04afe22df62d85ab3e81
 </html>
